@@ -511,6 +511,11 @@
         <label for="fotoProfil">Foto Profil</label>
         <input type="file" id="fotoProfil" accept="image/*">
 
+        <button type="button" class="photo-button" onclick="hapusFotoProfil()">
+            <i data-lucide="trash-2" style="width:14px;height:14px;vertical-align:middle;"></i>
+            Hapus Foto
+        </button>
+
         <label for="editNama">Nama Lengkap</label>
         <input type="text" id="editNama" placeholder="Masukkan nama">
 
@@ -630,6 +635,16 @@
             simpanData(null);
         }
     }
+
+    function hapusFotoProfil() {
+    localStorage.removeItem(kunci.foto);
+
+    document.getElementById('fotoProfil').value = '';
+
+    tampilkanProfil();
+
+    lucide.createIcons();
+}
 
     function tampilkanPesan(pesan) {
         const notice = document.getElementById('pesanAkun');
