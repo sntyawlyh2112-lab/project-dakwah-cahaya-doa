@@ -1,0 +1,313 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun | Cahaya Doa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #DCE6D9;
+            font-family: 'DM Sans', sans-serif;
+            padding: 30px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 650px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #FBF8F0;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 18px 50px rgba(23, 63, 43, 0.12);
+        }
+
+        .mosque-section {
+            position: relative;
+            min-height: 650px;
+            height: 100%;
+            overflow: hidden;
+
+            background-image: url("{% static 'dashboard/images/masjid-login.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .mosque-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(12, 45, 29, 0.75),
+                transparent 70%
+            );
+        }
+
+        .mosque-caption {
+            position: absolute;
+            bottom: 45px;
+            left: 38px;
+            right: 30px;
+            color: white;
+        }
+
+        .mosque-caption h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .mosque-caption p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #f1f5ef;
+        }
+
+        .form-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px 55px;
+        }
+
+        .register-form {
+            width: 100%;
+            max-width: 370px;
+        }
+
+        .logo {
+            color: #173F2B;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7B8C7D;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .register-form h2 {
+            color: #173F2B;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            color: #89958A;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #345541;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #DCE4D9;
+            border-radius: 11px;
+            outline: none;
+            background: white;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .form-group input:focus {
+            border-color: #8FA995;
+            box-shadow: 0 0 0 3px #8FA99520;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: #173F2B;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 7px;
+        }
+
+        .register-button:hover {
+            background: #28583D;
+        }
+
+        .login-text {
+            margin-top: 22px;
+            text-align: center;
+            color: #89958A;
+            font-size: 13px;
+        }
+
+        .login-text a {
+            color: #173F2B;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .error-list {
+            color: #A33D31;
+            background: #FCEBE8;
+            border-radius: 9px;
+            padding: 12px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 15px;
+            }
+
+            .register-container {
+                grid-template-columns: 1fr;
+                max-width: 430px;
+            }
+
+            .mosque-section {
+                min-height: 210px;
+            }
+
+            .mosque-caption {
+                bottom: 20px;
+                left: 23px;
+            }
+
+            .mosque-caption h2 {
+                font-size: 23px;
+            }
+
+            .form-section {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="mosque-section">
+        
+        <div class="mosque-overlay"></div>
+
+        <div class="mosque-caption">
+            <h2>Mulai Perjalanan Kebaikan</h2>
+            <p>
+                Jadikan doa sebagai bagian indah
+                dalam setiap langkah kehidupanmu.
+            </p>
+        </div>
+    </div>
+
+    <div class="form-section">
+
+        <div class="register-form">
+
+            <div class="logo">Cahaya Doa.</div>
+
+            <p class="subtitle">
+                Ruang doa harian untuk menemani perjalanan kebaikanmu.
+            </p>
+
+            <h2>Buat Akun</h2>
+            <p class="description">
+                Lengkapi data berikut untuk bergabung.
+            </p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="error-list">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_nama_lengkap">Nama Lengkap</label>
+                    {{ form.nama_lengkap }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_username">Nama Pengguna</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">Alamat Email</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">Kata Sandi</label>
+                    {{ form.password }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_konfirmasi_password">Konfirmasi Kata Sandi</label>
+                    {{ form.konfirmasi_password }}
+                </div>
+
+                <button type="submit" class="register-button">
+                    Daftar Sekarang
+                </button>
+            </form>
+
+            <p class="login-text">
+                Sudah punya akun?
+                <a href="{% url 'login' %}">Masuk di sini</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

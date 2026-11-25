@@ -460,10 +460,14 @@
         </div>
     </section>
 
-    <section class="account-card">
-        <h3 class="section-title">Pengelolaan Akun</h3>
+<!-- PENGELOLAAN AKUN -->
+<section class="account-card">
+    <h3 class="section-title">Pengelolaan Akun</h3>
 
-        <div class="account-menu" onclick="tampilkanPesan('Ganti Akun')">
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="account-menu"
+            style="width:100%; border:0; background:transparent; font-family:inherit; text-align:left;">
             <div class="account-icon">
                 <i data-lucide="repeat"></i>
             </div>
@@ -472,20 +476,25 @@
                 <p>Masuk menggunakan akun lain.</p>
             </div>
             <i data-lucide="chevron-right" class="account-arrow"></i>
-        </div>
+        </button>
+    </form>
 
-        <div class="account-menu" onclick="tampilkanPesan('Tambah Akun')">
-            <div class="account-icon">
-                <i data-lucide="user-plus"></i>
-            </div>
-            <div class="account-text">
-                <h3>Tambah Akun</h3>
-                <p>Tambahkan akun pengguna baru.</p>
-            </div>
-            <i data-lucide="chevron-right" class="account-arrow"></i>
+    <a href="{% url 'daftar' %}" class="account-menu"
+        style="text-decoration:none; color:inherit;">
+        <div class="account-icon">
+            <i data-lucide="user-plus"></i>
         </div>
+        <div class="account-text">
+            <h3>Tambah Akun</h3>
+            <p>Tambahkan akun pengguna baru.</p>
+        </div>
+        <i data-lucide="chevron-right" class="account-arrow"></i>
+    </a>
 
-        <div class="account-menu logout-menu" onclick="tampilkanPesan('Keluar')">
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="account-menu logout-menu"
+            style="width:100%; border:0; background:transparent; font-family:inherit; text-align:left;">
             <div class="account-icon">
                 <i data-lucide="log-out"></i>
             </div>
@@ -494,12 +503,10 @@
                 <p>Keluar dari akun Cahaya Doa.</p>
             </div>
             <i data-lucide="chevron-right" class="account-arrow"></i>
-        </div>
+        </button>
+    </form>
+</section>
 
-        <div class="notice" id="pesanAkun"></div>
-    </section>
-
-</div>
 
 <!-- MODAL EDIT PROFIL -->
 <div class="modal" id="editProfilModal">

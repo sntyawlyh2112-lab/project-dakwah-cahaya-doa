@@ -1,0 +1,309 @@
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk | Cahaya Doa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #DCE6D9;
+            font-family: 'DM Sans', sans-serif;
+            padding: 30px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 620px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #FBF8F0;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 18px 50px rgba(23, 63, 43, 0.12);
+        }
+
+        .mosque-section {
+            position: relative;
+            min-height: 620px;
+            height: 100%;
+            overflow: hidden;
+
+            background-image: url("{% static 'dashboard/images/masjid-login.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+                    
+        }
+
+        .mosque-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(12, 45, 29, 0.75),
+                transparent 70%
+            );
+            z-index: 2;
+        }
+
+        .mosque-caption {
+            position: absolute;
+            bottom: 45px;
+            left: 38px;
+            right: 30px;
+            color: white;
+            z-index: 3;
+        }
+
+        .mosque-caption h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .mosque-caption p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #f1f5ef;
+        }
+
+        .form-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 55px;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 370px;
+        }
+
+        .logo {
+            color: #173F2B;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #7B8C7D;
+            font-size: 14px;
+            margin-bottom: 42px;
+            line-height: 1.7;
+        }
+
+        .login-form h2 {
+            color: #173F2B;
+            font-size: 24px;
+            margin-bottom: 9px;
+        }
+
+        .description {
+            color: #89958A;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #345541;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #DCE4D9;
+            border-radius: 11px;
+            outline: none;
+            background: white;
+            font-family: inherit;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .form-group input:focus {
+            border-color: #8FA995;
+            box-shadow: 0 0 0 3px #8FA99520;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 11px;
+            background: #173F2B;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: .2s;
+        }
+
+        .login-button:hover {
+            background: #28583D;
+        }
+
+        .register-text {
+            margin-top: 25px;
+            text-align: center;
+            color: #89958A;
+            font-size: 13px;
+        }
+
+        .register-text a {
+            color: #173F2B;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .error-message {
+            background: #FCEBE8;
+            color: #A33D31;
+            padding: 12px;
+            border-radius: 9px;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                grid-template-columns: 1fr;
+                max-width: 430px;
+            }
+
+            .mosque-section {
+                min-height: 230px;
+            }
+
+            .form-section {
+                padding: 35px 25px;
+            }
+
+            .mosque-caption {
+                bottom: 20px;
+                left: 23px;
+            }
+
+            .mosque-caption h2 {
+                font-size: 23px;
+            }
+
+            .subtitle {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="mosque-section">
+        <div class="mosque-overlay"></div>
+
+        <div class="mosque-caption">
+            <h2>Temukan Ketenangan</h2>
+            <p>
+                Awali setiap langkah dengan mengingat Allah
+                dan mendekatkan diri melalui doa.
+            </p>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="login-form">
+
+            <div class="logo">Cahaya Doa.</div>
+
+            <p class="subtitle">
+                Ruang doa harian untuk menemani perjalanan kebaikanmu.
+            </p>
+
+            <h2>Selamat Datang</h2>
+            <p class="description">
+                Silakan masuk ke akun Cahaya Doa kamu.
+            </p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="error-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="email">Alamat Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Masukkan email kamu"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Kata Sandi</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Masukkan kata sandi"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button">
+                    Masuk
+                </button>
+            </form>
+
+            <p class="register-text">
+                Belum punya akun?
+                <a href="{% url 'daftar' %}">Daftar sekarang</a>
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+```
