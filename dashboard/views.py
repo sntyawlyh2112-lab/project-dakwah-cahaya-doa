@@ -105,15 +105,22 @@ def koleksi(request):
 @login_required(login_url='login')
 def suara_doa(request):
     teks = request.GET.get('teks', '').strip()
+    bahasa = request.GET.get('bahasa', 'id').strip()
 
     if not teks:
         return HttpResponse('Teks doa belum tersedia.')
 
+    if bahasa not in ['ar', 'id']:
+        bahasa = 'id'
+
     audio = BytesIO()
-    suara = gTTS(text=teks, lang='id')
+    suara = gTTS(text=teks, lang=bahasa)
     suara.write_to_fp(audio)
     audio.seek(0)
 
-    response = HttpResponse(audio.read(), content_type='audio/mpeg')
-    return response
+    response = HttpResponse(
+        audio.read(),
+        content_type='audio/mpeg'
+    )
 
+    return response

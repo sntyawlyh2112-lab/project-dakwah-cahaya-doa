@@ -521,5 +521,93 @@
     }
 </script>
 
+
+<script>
+    let audioDoaAktif = null;
+
+    function buatURL(teks, bahasa) {
+        return "{% url 'suara_doa' %}?teks="
+            + encodeURIComponent(teks)
+            + "&bahasa="
+            + bahasa;
+    }
+
+    function putarBagian(teks, bahasa) {
+        return new Promise((resolve, reject) => {
+            const audio = new Audio(buatURL(teks, bahasa));
+
+            audioDoaAktif = audio;
+
+            audio.onended = () => resolve();
+            audio.onerror = () => reject(new Error("Audio gagal dimuat"));
+
+            audio.play().catch(reject);
+        });
+    }
+
+    async function playDoa(arab, arti, button) {
+        if (audioDoaAktif) {
+            audioDoaAktif.pause();
+            audioDoaAktif = null;
+        }
+
+        document.querySelectorAll(".audio-doa-button")
+            .forEach(b => b.classList.remove("playing"));
+
+        button.classList.add("playing");
+
+        try {
+            await putarBagian(arab, "ar");
+            await putarBagian(arti, "id");
+        } catch (error) {
+            console.error(error);
+            alert("Audio gagal diputar. Periksa koneksi internet.");
+        } finally {
+            button.classList.remove("playing");
+            audioDoaAktif = null;
+        }
+    }
+
+    function pasangTombolSuara() {
+        document.querySelectorAll(".arabic")
+            .forEach(arab => {
+                if (arab.dataset.audioTerpasang === "true") return;
+
+                const latin = arab.nextElementSibling;
+                const arti = latin?.nextElementSibling;
+
+                if (!latin || !arti || !arti.textContent.includes("Artinya:")) {
+                    return;
+                }
+
+                const teksArab = arab.textContent.trim();
+                const teksArti = arti.textContent
+                    .replace("Artinya:", "")
+                    .trim();
+
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "audio-doa-button";
+                button.title = "Dengarkan doa";
+                button.innerHTML = `
+                    <i data-lucide="volume-2"></i>
+                `;
+
+                button.addEventListener("click", () => {
+                    playDoa(teksArab, teksArti, button);
+                });
+
+                arab.insertAdjacentElement("afterend", button);
+                arab.dataset.audioTerpasang = "true";
+            });
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+
+    pasangTombolSuara();
+</script>
+
 </body>
 </html>

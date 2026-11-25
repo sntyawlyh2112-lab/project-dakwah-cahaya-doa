@@ -233,6 +233,7 @@
         button.classList.add("playing");
 
         try {
+
             // 1. Membacakan tulisan Arab
             await putarBagian(arab, "ar");
 
@@ -250,7 +251,7 @@
     }
 
     function pasangTombolSuara() {
-        document.querySelectorAll(".category-content .arabic")
+        document.querySelectorAll(".prayer-detail .arabic")
             .forEach(arab => {
 
             if (arab.dataset.audioTerpasang === "true") {
@@ -263,9 +264,9 @@
                 return;
             }
 
-            const artiElement = latinElement.nextElementSibling;
+            const artiElement = arab.parentElement.querySelector(".translation p");
 
-            if (!artiElement || artiElement.tagName !== "P") {
+            if (!artiElement) {
                 return;
             }
 

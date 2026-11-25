@@ -909,48 +909,45 @@ footer {
 }
 
 
-/* TOMBOL AUDIO DOA */
+/* PREMIUM AUDIO PLAYER - CAHAYA DOA */
 .audio-doa-button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 50%;
-    background: #e2f0e1;
-    color: #23452f;
+    gap: 9px;
+    min-width: 116px;
+    height: 40px;
+    margin: 12px 0 20px auto;
+    padding: 0 15px;
+    border: 1px solid #d8c5a5;
+    border-radius: 30px;
+    background: #fffdf8;
+    color: #634938;
     cursor: pointer;
-    margin: 10px 0 20px auto;
-    transition: 0.3s ease;
-}
-
-.audio-doa-button:hover {
-    background: #23452f;
-    color: white;
-    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(99, 73, 56, 0.10);
+    transition: all 0.3s ease;
 }
 
 .audio-doa-button svg {
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
+    stroke-width: 1.8;
 }
 
+.audio-doa-button span {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.audio-doa-button:hover,
 .audio-doa-button.playing {
-    background: #23452f;
-    color: white;
-    animation: audioPulse 1s infinite alternate;
+    background: #634938;
+    color: #fffdf8;
+    border-color: #d8b77a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(99, 73, 56, 0.18);
 }
-
-@keyframes audioPulse {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.12);
-    }
-}
-
 
 /* PENGATURAN UKURAN BACAAN */
 .arabic.ukuran-kecil {
