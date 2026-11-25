@@ -1,0 +1,477 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penghitung Zikir - Cahaya Doa</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f8f7ef;
+            color: #183c29;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .zikir-page {
+            max-width: 900px;
+            margin: auto;
+            padding: 35px 25px;
+        }
+
+        .zikir-heading {
+            margin-bottom: 25px;
+        }
+
+        .zikir-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .zikir-heading p {
+            color: #849184;
+            font-size: 14px;
+        }
+
+        .counter-card {
+            max-width: 570px;
+            margin: auto;
+            padding: 25px;
+            background: #ffffff;
+            border: 1px solid #e5eadf;
+            border-radius: 28px;
+            box-shadow: 0 10px 30px #183c290c;
+        }
+
+        .counter-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #edf0e9;
+        }
+
+        .counter-top h2 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .counter-top span {
+            font-size: 12px;
+            color: #829184;
+        }
+
+        .selected-zikir {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .selected-zikir .arabic {
+            font-family: 'Amiri', serif;
+            font-size: 30px;
+            color: #315b40;
+            margin-bottom: 5px;
+        }
+
+        .selected-zikir .name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #315b40;
+        }
+
+        .bead-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 0;
+        }
+
+        .bead-circle {
+            width: 230px;
+            height: 230px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .bead-ring {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .bead-dot {
+            fill: #d6ddd4;
+            transition: fill .2s ease;
+        }
+
+        .bead-dot.active {
+            fill: #183c29;
+        }
+        .bead.active {
+            background: #315b40;
+            transform: translate(-50%, -50%) scale(1.12);
+        }
+
+        .count-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .count-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #183c29;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .count-target {
+            color: #9aa99b;
+            font-size: 12px;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #849184;
+            font-size: 13px;
+            margin-top: -15px;
+        }
+
+        .zikir-options {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 9px;
+            margin: 20px 0 25px;
+        }
+
+        .zikir-option {
+            padding: 13px 5px;
+            border: 1px solid #e5eadf;
+            border-radius: 13px;
+            background: #f8f9f5;
+            color: #526b58;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .zikir-option.active {
+            background: #315b40;
+            border-color: #315b40;
+            color: white;
+        }
+
+        .counter-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 22px;
+            margin-top: 20px;
+        }
+
+        .control-button {
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 50%;
+            background: #f0f4ee;
+            color: #315b40;
+            font-size: 22px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .control-button:hover {
+            background: #e2ebdf;
+            transform: scale(1.05);
+        }
+
+        .add-button {
+            width: 68px;
+            height: 68px;
+            border: none;
+            border-radius: 50%;
+            background: #183c29;
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 14px #183c2930;
+            transition: .2s;
+        }
+
+        .add-button:hover {
+            background: #315b40;
+            transform: scale(1.06);
+        }
+
+        .add-button:active {
+            transform: scale(.94);
+        }
+
+        .counter-status {
+            text-align: center;
+            color: #849184;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 550px) {
+            .zikir-page {
+                padding: 25px 15px;
+            }
+
+            .counter-card {
+                padding: 20px 15px;
+            }
+
+            .zikir-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .back-button {
+            display: inline-block;
+            color: #173f2b;
+            text-decoration: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 18px;
+        }
+
+        .back-button svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        .back-button:hover {
+            background: #173f2b;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<main class="zikir-page">
+
+    <a href="{% url 'home' %}" class="back-button" aria-label="Kembali ke Dashboard">
+         <svg xmlns="http://www.w3.org/2000/svg"
+            width="22" height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+    </svg>
+</a>
+
+    <header class="zikir-heading">
+        <h1>Penghitung Zikir</h1>
+        <p>Hitung zikir harianmu dengan mudah dan nyaman.</p>
+    </header>
+
+    <section class="counter-card">
+
+        <div class="counter-top">
+            <h2>Digital Tasbih</h2>
+            <span>CAHAYA DOA</span>
+        </div>
+
+        <div class="selected-zikir">
+            <div class="arabic" id="arabicText">أَسْتَغْفِرُ اللَّهَ</div>
+            <div class="name" id="zikirName">Istighfar</div>
+        </div>
+
+        <div class="bead-area">
+            <div class="bead-circle" id="beadCircle">
+
+                <div class="count-center">
+                    <div class="count-number" id="countNumber">0</div>
+                    <div class="count-target">/ 33</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="progress-text" id="progressText">
+            0 dari 33 zikir
+        </div>
+
+        <div class="zikir-options">
+
+            <button class="zikir-option active"
+                onclick="pilihZikir(0)">Istighfar</button>
+
+            <button class="zikir-option"
+                onclick="pilihZikir(1)">Tahlil</button>
+
+            <button class="zikir-option"
+                onclick="pilihZikir(2)">Tahmid</button>
+
+            <button class="zikir-option"
+                onclick="pilihZikir(3)">Tasbih</button>
+
+            <button class="zikir-option"
+                onclick="pilihZikir(4)">Takbir</button>
+
+        </div>
+
+        <div class="counter-controls">
+
+            <button class="control-button"
+                onclick="resetHitungan()"
+                title="Reset hitungan">
+                ↶
+            </button>
+
+            <button class="add-button"
+                onclick="tambahHitungan()"
+                title="Tambah hitungan">
+                +1
+            </button>
+
+        </div>
+
+        <div class="counter-status" id="counterStatus">
+            Tekan tombol +1 untuk mulai berzikir
+        </div>
+
+    </section>
+
+</main>
+    
+<script>
+    const daftarZikir = [
+        {
+            nama: "Istighfar",
+            arab: "أَسْتَغْفِرُ اللَّهَ"
+        },
+        {
+            nama: "Tahlil",
+            arab: "لَا إِلَهَ إِلَّا اللَّهُ"
+        },
+        {
+            nama: "Tahmid",
+            arab: "الْحَمْدُ لِلَّهِ"
+        },
+        {
+            nama: "Tasbih",
+            arab: "سُبْحَانَ اللَّهِ"
+        },
+        {
+            nama: "Takbir",
+            arab: "اللَّهُ أَكْبَرُ"
+        }
+    ];
+
+    let target = Number(localStorage.getItem("targetZikir") || 33);
+    let hitungan = 0;
+    let zikirAktif = 0;
+
+    const beadCircle = document.getElementById("beadCircle");
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    // Menyesuaikan tulisan target
+    document.querySelector(".count-target").textContent = "/ " + target;
+
+    // Membuat titik sesuai target
+    const ring = document.createElementNS(svgNS, "svg");
+    ring.setAttribute("viewBox", "0 0 230 230");
+    ring.setAttribute("class", "bead-ring");
+
+    for (let i = 0; i < target; i++) {
+        const angle = (i * 360 / target) - 90;
+        const radians = angle * Math.PI / 180;
+
+        const dot = document.createElementNS(svgNS, "circle");
+
+        dot.setAttribute("cx", 115 + 105 * Math.cos(radians));
+        dot.setAttribute("cy", 115 + 105 * Math.sin(radians));
+        dot.setAttribute("r", target > 33 ? 3 : 5.5);
+        dot.setAttribute("class", "bead-dot");
+        dot.setAttribute("id", "bead-" + i);
+
+        ring.appendChild(dot);
+    }
+
+    beadCircle.appendChild(ring);
+
+    function perbaruiTampilan() {
+        document.getElementById("countNumber").textContent = hitungan;
+
+        document.getElementById("progressText").textContent =
+            hitungan + " dari " + target + " zikir";
+
+        for (let i = 0; i < target; i++) {
+            document.getElementById("bead-" + i)
+                .classList.toggle("active", i < hitungan);
+        }
+
+        if (hitungan === target) {
+            document.getElementById("counterStatus").textContent =
+                "Alhamdulillah, target zikir tercapai!";
+        } else {
+            document.getElementById("counterStatus").textContent =
+                "Tekan tombol +1 untuk melanjutkan zikir";
+        }
+    }
+
+    
+function tambahHitungan() {
+    if (hitungan < target) {
+        hitungan++;
+
+        const hariIni = new Date().toLocaleDateString('en-CA');
+        const tanggalTersimpan = localStorage.getItem('tanggalZikir');
+
+        if (tanggalTersimpan !== hariIni) {
+            localStorage.setItem('tanggalZikir', hariIni);
+            localStorage.setItem('totalZikirHarian', '0');
+        }
+
+        let total = Number(localStorage.getItem('totalZikirHarian') || 0);
+        total++;
+
+        localStorage.setItem('totalZikirHarian', total);
+
+        perbaruiTampilan();
+    }
+}
+
+function resetHitungan() {
+    hitungan = 0;
+
+    localStorage.setItem('totalZikirHarian', '0');
+
+    const hariIni = new Date().toLocaleDateString('en-CA');
+    localStorage.setItem('tanggalZikir', hariIni);
+
+    perbaruiTampilan();
+}
+
+</script>
+</body>
+</html>

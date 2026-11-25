@@ -1,0 +1,525 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Doa | Cahaya Doa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef4ec;
+            font-family: 'DM Sans', sans-serif;
+            color: #263b2c;
+            padding: 35px 18px;
+        }
+
+        .explore-container {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            color: #52715a;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .back-button:hover {
+            color: #244b31;
+        }
+
+        .page-heading {
+            margin-bottom: 28px;
+        }
+
+        .page-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: #244b31;
+            margin-bottom: 9px;
+        }
+
+        .page-heading p {
+            color: #819083;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .search-box {
+            background: white;
+            border: 1px solid #e3eade;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 15px #29462c08;
+        }
+
+        .search-box i {
+            color: #78917c;
+            width: 19px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+            color: #263b2c;
+            background: transparent;
+        }
+
+        .section-heading {
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+            color: #294b33;
+            margin-bottom: 5px;
+        }
+
+        .section-heading p {
+            color: #89978a;
+            font-size: 13px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .category-card {
+            background: #fff;
+            border: 1px solid #e5ecdf;
+            border-radius: 20px;
+            padding: 22px;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+            transition: .25s ease;
+            box-shadow: 0 5px 18px #29462c08;
+        }
+
+        .category-card summary {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+        }
+
+        .category-card summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .category-content {
+            padding-top: 22px;
+            margin-top: 18px;
+            border-top: 1px solid #e5ecdf;
+            line-height: 1.8;
+        }
+
+        .category-content h4 {
+            color: #31553a;
+            margin-bottom: 10px;
+        }
+
+        .category-content p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .category-content .arabic {
+            font-size: 27px;
+            line-height: 2;
+            text-align: right;
+            color: #244b31;
+        }
+
+        .category-content hr {
+            border: 0;
+            border-top: 1px solid #e5ecdf;
+            margin: 20px 0;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            border-color: #a9bea7;
+            box-shadow: 0 10px 25px #29462c12;
+        }
+
+        .category-icon {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+            border-radius: 16px;
+            background: #edf4eb;
+            color: #47734e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-icon i {
+            width: 25px;
+            height: 25px;
+        }
+
+        .category-info {
+            flex: 1;
+        }
+
+        .category-info h3 {
+            font-size: 15px;
+            color: #31553a;
+            margin-bottom: 6px;
+        }
+
+        .category-info p {
+            font-size: 12px;
+            color: #929d91;
+        }
+
+        .category-arrow {
+            color: #9aaf98;
+            width: 18px;
+        }
+
+        .empty-message {
+            display: none;
+            text-align: center;
+            color: #89978a;
+            padding: 35px 10px;
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 24px 15px;
+            }
+
+            .page-heading h1 {
+                font-size: 29px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+
+            .category-card {
+                padding: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="explore-container">
+
+    <a href="{% url 'home' %}" class="back-button">
+        <i data-lucide="arrow-left"></i>
+        Kembali ke Dashboard
+    </a>
+
+    <div class="page-heading">
+        <h1>Explore Doa</h1>
+        <p>Temukan berbagai kumpulan doa untuk menemani aktivitas sehari-hari.</p>
+    </div>
+
+    <div class="search-box">
+        <i data-lucide="search"></i>
+        <input type="text" id="searchKategori"
+               placeholder="Cari doa atau kategori..."
+               oninput="cariKategori()">
+    </div>
+
+    <div class="section-heading">
+        <h2>Kategori Doa</h2>
+        <p>Pilih kategori untuk melihat kumpulan doa.</p>
+    </div>
+
+    <!-- KATEGORI DOA -->
+<section class="category-section" id="kategori-doa">
+    <div class="category-grid">
+
+        <!-- DOA SETELAH SALAT -->
+        <details class="category-card">
+            <summary>
+                <div class="category-icon">
+                    <i data-lucide="book-open"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Doa Setelah Salat</h3>
+                    <p>Bacaan setelah salat</p>
+                </div>
+                <span class="category-arrow">
+                    <i data-lucide="chevron-down"></i>
+                </span>
+            </summary>
+
+            <div class="category-content">
+                <h4>Istighfar</h4>
+                <p class="arabic">أَسْتَغْفِرُ اللهَ</p>
+                <p><b>Latin:</b> Astaghfirullah</p>
+                <p><b>Artinya:</b> Aku memohon ampun kepada Allah.</p>
+
+                <hr>
+
+                <h4>Doa Memohon Keselamatan</h4>
+                <p class="arabic">اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يا ذَا الْجَلاَلِ وَالإِكْرَامِ</p>
+                <p><b>Latin:</b> Allahumma anta as-salamu wa minka as-salam, tabarakta ya dzal-jalali wal-ikram.</p>
+                <p><b>Artinya:</b> Ya Allah, Engkaulah keselamatan, dan dari-Mu datang keselamatan. Maha Suci Engkau, wahai Tuhan yang memiliki keagungan dan kemuliaan.</p>                        
+
+                <hr>
+
+                <h4>Doa Memohon Pertolongan</h4>
+                <p class="arabic">اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ</p>
+                <p><b>Latin:</b> Allahumma a'inni 'ala dzikrika wa syukrika wa husni 'ibadatika.</p>
+                <p><b>Artinya:</b> Ya Allah, bantulah aku untuk mengingat-Mu, bersyukur kepada-Mu dan beribadah kepada-Mu dengan baik.</p>
+                
+                <hr>
+
+                <h4>Doa Memohon Ampunan</h4>
+                <p class="arabic">رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا</p>
+                <p><b>Latin:</b> Rabbana ighfir lana dhunubana wa isrāfana fī amrinas</p>
+                <p><b>Artinya:</b> Ya Tuhan kami, ampunilah dosa-dosa kami dan kelebihan dalam urusan kami.</p>
+
+                <hr>
+
+                <h4>Tasbih</h4>
+                <p class="arabic">سُبْحَانَ اللهِ</p>
+                <p><b>Latin:</b> Subhanallah</p>
+                <p><b>Artinya:</b> Maha Suci Allah.</p>
+
+                <hr>
+
+                <h4>Tahmid</h4>
+                <p class="arabic">الْحَمْدُ لِلَّهِ</p>
+                <p><b>Latin:</b> Alhamdulillah</p>
+                <p><b>Artinya:</b> Segala puji bagi Allah.</p>
+
+                <hr>
+
+                <h4>Takbir</h4>
+                <p class="arabic">اللهُ أَكْبَرُ</p>
+                <p><b>Latin:</b> Allahu Akbar</p>
+                <p><b>Artinya:</b> Allah Maha Besar.</p>
+                
+                <hr>
+
+                <h4>Tahlil</h4>
+                <p class="arabic">لَا إِلَهَ إِلَّا اللَّهُ</p>
+                <p><b>Latin:</b> Lāʾ ihāʾ illāhu</p>
+                <p><b>Artinya:</b> Tidak ada ilah selain Allah.</p>
+
+                <hr>
+
+                <h4>Ayat Kursi</h4>
+                <p class="arabic">اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ</p>
+                <p><b>Latin:</b> Allahu la ilaha illa huwa al-hayyul-qayyum la ta'khudhuhu sinatun wa la nawm lahu ma fis-samawati wa ma fil-ard man dhal-ladhi yashfa'u 'indahu illa bi-idhnihi ya'lamu ma bayna aydihim wa ma khalfahum wa la yuhituna bi shai'im-min 'ilmihi illa bima shaa wasi'a kursiyuhus-samawati wal-ard wa la ya'uduhu hifdhuhuma wa huwa al-aliyyul-azhim.</p>
+                <p><b>Artinya:</b> Allah, tidak ada Tuhan selain Dia, Yang Maha Hidup, Yang terus-menerus mengurus makhluk-Nya. Dia tidak mengantuk dan tidak tidur. Milik-Nya apa yang ada di langit dan di bumi. Tidak ada yang dapat memberi syafaat di sisi-Nya tanpa izin-Nya. Dia mengetahui apa yang ada di hadapan dan di belakang mereka. Mereka tidak mengetahui apa pun dari ilmu-Nya kecuali apa yang Dia kehendaki. Kursi-Nya meliputi langit dan bumi. Dia tidak merasa berat memelihara keduanya, dan Dia Maha Tinggi, Maha Besar.</p>
+
+                <hr>
+
+                <h4>Doa Setelah Salat</h4>
+                <p class="arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</p>
+                <p><b>Latin:</b> Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhaban-nar.</p>
+                <p><b>Artinya:</b> Ya Tuhan kami, berikanlah kepada kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari siksa neraka.</p>
+                </div>
+            </details>
+
+        <!-- DOA ISTIRAHAT -->
+        <details class="category-card">
+            <summary>
+                <div class="category-icon">
+                    <i data-lucide="moon"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Doa Istirahat</h3>
+                    <p>Doa sebelum tidur</p>
+                </div>
+                <span class="category-arrow">
+                    <i data-lucide="chevron-down"></i>
+                </span>
+            </summary>
+
+            <div class="category-content">
+                <h4>Doa Sebelum Tidur</h4>
+                <p class="arabic">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا</p>
+                <p><b>Latin:</b> Bismika Allahumma amutu wa ahya.</p>
+                <p><b>Artinya:</b> Dengan nama-Mu ya Allah, aku mati dan aku hidup.</p>
+
+                <hr>
+
+                <h4>Doa Bangun Tidur</h4>
+                <p class="arabic">الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</p>
+                <p><b>Latin:</b> Alhamdulillahil-ladzi ahyana ba'da ma amatana wa ilaihin-nusyur.</p>
+                <p><b>Artinya:</b> Segala puji bagi Allah yang telah menghidupkan kami setelah mematikan kami, dan kepada-Nya kami kembali.</p>
+            </div>
+        </details>
+
+        <!-- DOA HARIAN -->
+        <details class="category-card">
+            <summary>
+                <div class="category-icon">
+                    <i data-lucide="sun"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Doa Harian</h3>
+                    <p>Doa aktivitas sehari-hari</p>
+                </div>
+                <span class="category-arrow">
+                    <i data-lucide="chevron-down"></i>
+                </span>
+            </summary>
+
+            <div class="category-content">
+                <h4>Doa Sebelum Makan</h4>
+                <p class="arabic">اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ</p>
+                <p><b>Latin:</b> Allahumma barik lana fima razaqtana wa qina 'adhaban-nar.</p>
+                <p><b>Artinya:</b> Ya Tuhan kami, berikanlah kepada kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari siksa neraka.</p>
+
+                <hr>
+
+                <h4>Doa Sesudah Makan</h4>
+                <p class="arabic">الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ</p>
+                <p><b>Latin:</b> Alhamdulillahil-ladzi ath'amani hadza wa razaqanihi min ghairi haulin minni wa la quwwah.</p>
+                <p><b>Artinya:</b> Segala puji bagi Allah yang telah memberiku makanan ini dan rezeki ini tanpa daya dan kekuatan dariku.</p>
+
+                <hr>
+
+                <h4>Doa Masuk Kamar Mandi</h4>
+                <p class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبْثِ وَالْخَبَائِثِ</p>
+                <p><b>Latin:</b> Allahumma inni a'udzu bika minal-khubthi wal-khaba'ith.</p>
+                <p><b>Artinya:</b> Ya Allah, aku berlindung kepada-Mu dari kejahatan dan keburukan.</p> 
+
+                <hr>
+
+                <h4>Doa Keluar Kamar Mandi</h4>
+                <p class="arabic">غُفْرَانَكَ</p>
+                <p><b>Latin:</b> Ghufranaka.</p>
+                <p><b>Artinya:</b> Aku memohon ampunan-Mu.</p>
+
+                <hr>
+
+                <h4>Doa Masuk Rumah</h4>
+                <p class="arabic">بِسْمِ اللهِ وَلَجْنَا وَبِسْمِ اللهِ خَرَجْنَا وَعَلَى رَبِّنَا تَوَكَّلْنَا</p>
+                <p><b>Latin:</b> Bismillahi walajna wa bismillahi kharajna wa 'ala rabbina tawakkalna.</p>
+                <p><b>Artinya:</b> Dengan nama Allah kami masuk dan dengan nama Allah kami keluar, dan kepada Tuhan kami kami bertawakal.</p>
+
+                <hr>
+
+                <h4>Doa Keluar Rumah</h4>
+                <p class="arabic">بِسْمِ اللهِ تَوَكَّلْتُ عَلَى اللهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ</p>
+                <p><b>Latin:</b> Bismillahi tawakkaltu 'alallah, wa la haula wa la quwwata illa billah.</p>
+                <p><b>Artinya:</b> Dengan nama Allah, aku bertawakal kepada Allah. Tidak ada daya dan kekuatan kecuali dengan Allah.</p>
+
+                <hr>
+
+                <h4>Doa Memohon Ilmu</h4>
+                <p class="arabic">رَبِّ اغْفِرْ لِي وَارْحَمْنِي وَهَدِنِي وَعَلِّمْنِي</p>
+                <p><b>Latin:</b> Rabbighfir li wa rhamni wa hadinii wa'allimni.</p>
+                <p><b>Artinya:</b> Ya Tuhanku, ampunilah aku, kasihanilah aku, bimbinglah aku, dan ajarilah aku.</p>
+
+                <hr>
+
+                <h4>Doa Naik Kendaraan</h4>
+                <p class="arabic">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَا لَنَا مِنْ قُوَّةٍ وَمَا كُنَّا لنَا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى ربِّنَا لَمُنْقَلِبُونَ</p>
+                <p><b>Latin:</b> Subhanalladzi sakhkhara lana hadza wa ma kunna lana min quwwatin wa ma kunna lanahu muqrinin wa inna ila rabbina lamunqalibun.</p>
+                <p><b>Artinya:</b> Maha Suci Allah yang telah menundukkan ini untuk kami, dan kami tidak mampu menguasainya, dan kami akan kembali kepada Tuhan kami.</p>   
+
+                <hr>
+
+                <h4>Doa Turun Kendaraan</h4>
+                <p class="arabic">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَا لَنَا مِنْ قُوَّةٍ وَمَا كُنَّا لنَا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى ربِّنَا لَمُنْقَلِبُونَ</p>
+                <p><b>Latin:</b> Subhanalladzi sakhkhara lana hadza wa ma kunna lana min quwwatin wa ma kunna lanahu muqrinin wa inna ila rabbina lamunqalibun.</p>
+                <p><b>Artinya:</b> Maha Suci Allah yang telah menundukkan ini untuk kami, dan kami tidak mampu menguasainya, dan kami akan kembali kepada Tuhan kami.</p>
+            </div>
+        </details>
+
+        <!-- DOA KELUARGA -->
+        <details class="category-card">
+            <summary>
+                <div class="category-icon">
+                    <i data-lucide="users"></i>
+                </div>
+                <div class="category-info">
+                    <h3>Doa Keluarga</h3>
+                    <p>Doa untuk keluarga</p>
+                </div>
+                <span class="category-arrow">
+                    <i data-lucide="chevron-down"></i>
+                </span>
+            </summary>
+
+            <div class="category-content">
+                <h4>Doa untuk Kedua Orang Tua</h4>
+                <p class="arabic">رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</p>
+                <p><b>Latin:</b> Rabbighfir li wa liwalidayya warhamhuma kama rabbayani shaghira.</p>
+                <p><b>Artinya:</b> Ya Tuhanku, ampunilah aku dan kedua orang tuaku, serta sayangilah mereka sebagaimana mereka menyayangiku ketika kecil.</p>
+
+                <hr>
+
+                <h4>Doa Kebaikan Keluarga</h4>
+                <p class="arabic">رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا</p>
+                <p><b>Latin:</b> Rabbana hab lana min azwajina wa dzurriyatina qurrata a'yun, waj'alna lil-muttaqina imama.</p>
+                <p><b>Artinya:</b> Ya Tuhan kami, anugerahkanlah kepada kami pasangan dan keturunan yang menyejukkan hati, dan jadikanlah kami pemimpin bagi orang-orang yang bertakwa.</p>
+            </div>
+        </details>
+
+    </div>
+</section>
+<!-- AKHIR KATEGORI DOA -->
+
+<script>
+    lucide.createIcons();
+
+    function cariKategori() {
+        const keyword = document
+            .getElementById('searchKategori')
+            .value.toLowerCase();
+
+        const cards = document.querySelectorAll('.category-card');
+        let jumlahTampil = 0;
+
+        cards.forEach(card => {
+            const nama = card.innerText.toLowerCase();
+
+            if (nama.includes(keyword)) {
+                card.style.display = 'flex';
+                jumlahTampil++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

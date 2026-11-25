@@ -1,0 +1,13 @@
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('zikir/', views.zikir, name='zikir'),
+    path('pengaturan/', views.settings, name='settings'),
+    path('profil/', views.profil, name='profil'),
+    path('explore/', views.explore, name='explore'),
+    path('koleksi/', views.koleksi, name='koleksi'),
+    path('suara-doa/', views.suara_doa, name='suara_doa'),
+]

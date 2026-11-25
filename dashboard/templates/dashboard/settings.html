@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan | Cahaya Doa</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f3f6f0;
+            color: #183c29;
+            padding: 35px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #829084;
+            font-size: 14px;
+        }
+
+        .settings-card {
+            background: white;
+            border: 1px solid #e8eee5;
+            border-radius: 20px;
+            padding: 23px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            cursor: pointer;
+            transition: .25s ease;
+        }
+
+        .settings-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px #183c2910;
+        }
+
+        .settings-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: #edf4eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            flex-shrink: 0;
+        }
+
+        .settings-info {
+            flex: 1;
+        }
+
+        .settings-info h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .settings-info p {
+            font-size: 13px;
+            color: #89968b;
+        }
+
+        .arrow {
+            font-size: 22px;
+            color: #a4b1a4;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 14px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .settings-card {
+                padding: 17px;
+                gap: 13px;
+            }
+        }
+
+        .settings-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: #edf4eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #315b40;
+        }
+
+        .settings-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 1.7;
+        }
+
+
+#profilModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 45, 30, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.profil-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 15px 45px #102d1d25;
+}
+
+.profil-box h2 {
+    font-family: 'Playfair Display', serif;
+    color: #183c29;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.profil-box p {
+    color: #89968b;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.profil-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: #315b40;
+}
+
+.profil-box input,
+.profil-box textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #e1e9df;
+    border-radius: 12px;
+    outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: #f8faf6;
+    color: #183c29;
+}
+
+.profil-box input:focus,
+.profil-box textarea:focus {
+    border-color: #63866a;
+}
+
+.profil-box textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.profil-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.profil-actions button {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+}
+
+.profil-actions button:first-child {
+    background: #edf2eb;
+    color: #315b40;
+}
+
+.profil-actions button:last-child {
+    background: #315b40;
+    color: white;
+}
+
+
+.tema-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 45, 30, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9998;
+    backdrop-filter: blur(5px);
+}
+
+.tema-box {
+    width: 100%;
+    max-width: 440px;
+    background: white;
+    padding: 28px;
+    border-radius: 24px;
+    box-shadow: 0 15px 45px #102d1d25;
+}
+
+.tema-box h2 {
+    font-family: 'Playfair Display', serif;
+    color: #183c29;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.tema-box > p {
+    color: #89968b;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.tema-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px;
+    border: 1px solid #e7eee5;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.tema-option:hover {
+    border-color: #63866a;
+    background: #f8faf6;
+}
+
+.tema-preview {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tema-preview svg {
+    width: 23px;
+    height: 23px;
+}
+
+.tema-terang {
+    background: #f3f6f0;
+    color: #315b40;
+}
+
+.tema-gelap {
+    background: #183c29;
+    color: #ffffff;
+}
+
+.tema-option div:nth-child(2) {
+    flex: 1;
+}
+
+.tema-option h3 {
+    font-size: 14px;
+    color: #183c29;
+    margin-bottom: 4px;
+}
+
+.tema-option p {
+    font-size: 12px;
+    color: #89968b;
+}
+
+.tema-option span {
+    color: #315b40;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tema-box > button {
+    width: 100%;
+    border: none;
+    padding: 13px;
+    border-radius: 12px;
+    background: #315b40;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+
+/* TEMA GELAP */
+body.tema-gelap-aktif {
+    background: #14251b;
+    color: #edf4eb;
+}
+
+body.tema-gelap-aktif .settings-card {
+    background: #20372a;
+    border-color: #304a38;
+}
+
+body.tema-gelap-aktif .settings-info h3 {
+    color: #edf4eb;
+}
+
+body.tema-gelap-aktif .settings-info p {
+    color: #a6b7a8;
+}
+
+body.tema-gelap-aktif .settings-icon {
+    background: #304a38;
+    color: #d9ead8;
+}
+
+body.tema-gelap-aktif .arrow {
+    color: #a6b7a8;
+}
+
+
+/* TAMPILAN PENGATURAN BACAAN */
+.bacaan-group {
+    margin-top: 22px;
+}
+
+
+.bacaan-group h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #183c29 !important;
+    margin-bottom: 10px;
+}
+
+.tema-gelap-aktif .bacaan-group h3 {
+    color: #043918 !important;
+    font-weight: 700;
+    text-shadow: 0 0 1px #043918;
+}
+
+
+.bacaan-group select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #e1e9df;
+    border-radius: 12px;
+    background: #f8faf6;
+    color: #183c29;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.bacaan-group select:focus {
+    border-color: #63866a;
+}
+
+.tema-gelap-aktif .bacaan-group h3 {
+    color: #edf4eb;
+}
+
+.tema-gelap-aktif .bacaan-group select {
+    background: #14251b;
+    border-color: #405b47;
+    color: #edf4eb;
+}
+
+
+/* TENTANG APLIKASI */
+.tentang-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 15px;
+    margin-top: 20px;
+    background: #f1f6ef;
+    border-radius: 18px;
+}
+
+.tentang-logo i {
+    width: 38px;
+    height: 38px;
+    color: #315b40;
+    margin-bottom: 10px;
+}
+
+.tentang-logo h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+    color: #183c29;
+}
+
+.tentang-logo span {
+    margin-top: 5px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #829184;
+}
+
+.tentang-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.tentang-info div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e8eee5;
+}
+
+.tentang-info span {
+    font-size: 12px;
+    color: #849184;
+}
+
+.tentang-info strong {
+    font-size: 12px;
+    color: #183c29;
+    text-align: right;
+}
+
+.tentang-deskripsi {
+    margin: 20px 0;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #68796b;
+    text-align: justify;
+}
+
+.tema-gelap-aktif .tentang-logo {
+    background: #304a38;
+}
+
+body.tema-gelap-aktif #tentangModal .tentang-logo h3 {
+    color: #d9ead8 !important;
+}
+.tema-gelap-aktif .tentang-info strong {
+    color: #043918 !important;
+}
+
+.tema-gelap-aktif .tentang-logo i {
+    color: #d9ead8;
+}
+
+.tema-gelap-aktif .tentang-info div {
+    border-color: #405b47;
+}
+
+.tema-gelap-aktif .tentang-deskripsi {
+    color: #a6b7a8;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="page-header">
+            <h1>Pengaturan</h1>
+            <p>Atur pengalaman penggunaan Cahaya Doa sesuai kebutuhanmu.</p>
+        </header>
+
+        <div class="settings-card" onclick="bukaProfil()">
+            <div class="settings-icon"><i data-lucide="user-round"></i></div>
+            <div class="settings-info">
+                <h3>Profil Pengguna</h3>
+                <p>Atur nama dan informasi pengguna.</p>
+            </div>
+            <span class="arrow">›</span>
+        </div>
+
+        <div class="settings-card" onclick="bukaTema()">
+            <div class="settings-icon"><i data-lucide="palette"></i></div>
+            <div class="settings-info">
+                <h3>Tema Tampilan</h3>
+                <p>Pilih tampilan terang atau gelap.</p>
+            </div>
+            <span class="arrow">›</span>
+        </div>
+
+        <div class="settings-card" onclick="bukaSuara()">
+            <div class="settings-icon"><i data-lucide="volume-2"></i></div>
+            <div class="settings-info">
+                <h3>Pengaturan Suara</h3>
+                <p>Atur suara bacaan doa.</p>
+            </div>
+            <span class="arrow">›</span>
+        </div>
+
+        <div class="settings-card" onclick="bukaBacaan()">
+            <div class="settings-icon"><i data-lucide="book-open"></i></div>
+            <div class="settings-info">
+                <h3>Pengaturan Bacaan</h3>
+                <p>Atur ukuran teks Arab dan terjemahan.</p>
+            </div>
+            <span class="arrow">›</span>
+        </div>
+
+        <div class="settings-card" onclick="bukaTargetZikir()">
+            <div class="settings-icon"><i data-lucide="target"></i></div>
+            <div class="settings-info">
+                <h3>Target Zikir</h3>
+                <p>Pilih target zikir 33, 99, atau 100 kali.</p>
+            </div>
+            <span class="arrow">›</span>
+        </div>
+
+        <div class="settings-card" onclick="bukaTentang()">
+            <div class="settings-icon"><i data-lucide="info"></i></div>
+            <div class="settings-info">
+                <h3>Tentang Aplikasi</h3>
+                <p>Informasi aplikasi Cahaya Doa.</p>
+            </div>
+            <span class="arrow">›</span>
+        </div>
+
+    </div>
+
+    <script>
+        function bukaPengaturan(nama) {
+            alert(nama + ' akan diatur pada langkah berikutnya.');
+        }
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+    lucide.createIcons();
+</script>
+
+<div id="profilModal" style="display: none;">
+    <div class="profil-box">
+        <h2>Profil Pengguna</h2>
+        <p>Ubah informasi profil Cahaya Doa.</p>
+
+        <label for="namaPengguna">Nama Pengguna</label>
+        <input
+            type="text"
+            id="namaPengguna"
+            placeholder="Masukkan nama pengguna"
+        >
+
+        <label for="bioPengguna">Informasi Profil</label>
+        <textarea
+            id="bioPengguna"
+            placeholder="Tuliskan informasi singkat tentang dirimu"
+        ></textarea>
+
+        <div class="profil-actions">
+            <button type="button" onclick="tutupProfil()">Batal</button>
+            <button type="button" onclick="simpanProfil()">Simpan</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function bukaProfil() {
+        const modal = document.getElementById('profilModal');
+
+        document.getElementById('namaPengguna').value =
+            localStorage.getItem('cahayaNama') || '';
+
+        document.getElementById('bioPengguna').value =
+            localStorage.getItem('cahayaBio') || '';
+
+        modal.style.display = 'flex';
+    }
+
+    function tutupProfil() {
+        document.getElementById('profilModal').style.display = 'none';
+    }
+
+    function simpanProfil() {
+        const nama = document.getElementById('namaPengguna').value.trim();
+        const bio = document.getElementById('bioPengguna').value.trim();
+
+        if (nama === '') {
+            alert('Nama pengguna tidak boleh kosong!');
+            return;
+        }
+
+        localStorage.setItem('cahayaNama', nama);
+        localStorage.setItem('cahayaBio', bio);
+
+        alert('Profil berhasil disimpan!');
+        tutupProfil();
+    }
+
+
+function bukaTema() {
+    document.getElementById('temaModal').style.display = 'flex';
+    perbaruiPilihanTema();
+}
+
+function tutupTema() {
+    document.getElementById('temaModal').style.display = 'none';
+}
+
+function pilihTema(tema) {
+    localStorage.setItem('cahayaTema', tema);
+    terapkanTema();
+    perbaruiPilihanTema();
+}
+
+function terapkanTema() {
+    const tema = localStorage.getItem('cahayaTema') || 'terang';
+
+    document.body.classList.toggle(
+        'tema-gelap-aktif',
+        tema === 'gelap'
+    );
+}
+
+function perbaruiPilihanTema() {
+    const tema = localStorage.getItem('cahayaTema') || 'terang';
+
+    document.getElementById('cekTerang').textContent =
+        tema === 'terang' ? '✓' : '';
+
+    document.getElementById('cekGelap').textContent =
+        tema === 'gelap' ? '✓' : '';
+}
+
+terapkanTema();
+
+
+function bukaSuara() {
+    document.getElementById('suaraModal').style.display = 'flex';
+    perbaruiPilihanSuara();
+}
+
+function tutupSuara() {
+    document.getElementById('suaraModal').style.display = 'none';
+}
+
+function pilihSuara(status) {
+    localStorage.setItem('cahayaSuara', status);
+    perbaruiPilihSuara();
+}
+
+function perbaruiPilihanSuara() {
+    const status = localStorage.getItem('cahayaSuara') || 'aktif';
+
+    document.getElementById('cekSuaraAktif').textContent =
+        status === 'aktif' ? '✓' : '';
+
+    document.getElementById('cekSuaraNonaktif').textContent =
+        status === 'nonaktif' ? '✓' : '';
+}
+
+
+function bukaBacaan() {
+    document.getElementById('bacaanModal').style.display = 'flex';
+
+    document.getElementById('ukuranArab').value =
+        localStorage.getItem('ukuranArab') || 'sedang';
+
+    document.getElementById('ukuranTerjemahan').value =
+        localStorage.getItem('ukuranTerjemahan') || 'sedang';
+}
+
+function tutupBacaan() {
+    document.getElementById('bacaanModal').style.display = 'none';
+}
+
+function ubahUkuranBacaan() {
+    const arab = document.getElementById('ukuranArab').value;
+    const terjemahan = document.getElementById('ukuranTerjemahan').value;
+
+    localStorage.setItem('ukuranArab', arab);
+    localStorage.setItem('ukuranTerjemahan', terjemahan);
+}
+
+
+function bukaTargetZikir() {
+    document.getElementById('targetZikirModal').style.display = 'flex';
+    perbaruiPilihanTargetZikir();
+}
+
+function tutupTargetZikir() {
+    document.getElementById('targetZikirModal').style.display = 'none';
+}
+
+function pilihTargetZikir(target) {
+    localStorage.setItem('targetZikir', target);
+    perbaruiPilihanTargetZikir();
+}
+
+function perbaruiPilihanTargetZikir() {
+    const target = localStorage.getItem('targetZikir') || '33';
+
+    document.getElementById('cekTarget33').textContent =
+        target === '33' ? '✓' : '';
+
+    document.getElementById('cekTarget99').textContent =
+        target === '99' ? '✓' : '';
+
+    document.getElementById('cekTarget100').textContent =
+        target === '100' ? '✓' : '';
+}
+
+
+function bukaTentang() {
+    document.getElementById('tentangModal').style.display = 'flex';
+
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+function tutupTentang() {
+    document.getElementById('tentangModal').style.display = 'none';
+}
+
+</script>
+
+<div id="temaModal" class="tema-modal">
+    <div class="tema-box">
+        <h2>Tema Tampilan</h2>
+        <p>Pilih tampilan yang nyaman digunakan.</p>
+
+        <div class="tema-option" onclick="pilihTema('terang')">
+            <div class="tema-preview tema-terang">
+                <i data-lucide="sun"></i>
+            </div>
+            <div>
+                <h3>Tema Terang</h3>
+                <p>Tampilan cerah dan lembut.</p>
+            </div>
+            <span id="cekTerang"></span>
+        </div>
+
+        <div class="tema-option" onclick="pilihTema('gelap')">
+            <div class="tema-preview tema-gelap">
+                <i data-lucide="moon"></i>
+            </div>
+            <div>
+                <h3>Tema Gelap</h3>
+                <p>Tampilan gelap dan nyaman.</p>
+            </div>
+            <span id="cekGelap"></span>
+        </div>
+
+        <button onclick="tutupTema()">Tutup</button>
+    </div>
+</div>
+
+
+<div id="suaraModal" class="tema-modal">
+    <div class="tema-box">
+        <h2>Pengaturan Suara</h2>
+        <p>Atur suara pada aplikasi Cahaya Doa.</p>
+
+        <div class="tema-option" onclick="pilihSuara('aktif')">
+            <div class="tema-preview tema-terang">
+                <i data-lucide="volume-2"></i>
+            </div>
+            <div>
+                <h3>Suara Aktif</h3>
+                <p>Suara dapat diputar.</p>
+            </div>
+            <span id="cekSuaraAktif"></span>
+        </div>
+
+        <div class="tema-option" onclick="pilihSuara('nonaktif')">
+            <div class="tema-preview tema-gelap">
+                <i data-lucide="volume-x"></i>
+            </div>
+            <div>
+                <h3>Suara Nonaktif</h3>
+                <p>Suara tidak diputar.</p>
+            </div>
+            <span id="cekSuaraNonaktif"></span>
+        </div>
+
+        <button onclick="tutupSuara()">Tutup</button>
+    </div>
+</div>
+
+
+<div id="bacaanModal" class="tema-modal">
+    <div class="tema-box">
+        <h2>Pengaturan Bacaan</h2>
+        <p>Atur ukuran tulisan agar nyaman dibaca.</p>
+
+        <div class="bacaan-group">
+            <h3>Ukuran Tulisan Arab</h3>
+            <select id="ukuranArab" onchange="ubahUkuranBacaan()">
+                <option value="kecil">Kecil</option>
+                <option value="sedang">Sedang</option>
+                <option value="besar">Besar</option>
+            </select>
+        </div>
+
+        <div class="bacaan-group">
+            <h3>Ukuran Terjemahan</h3>
+            <select id="ukuranTerjemahan" onchange="ubahUkuranBacaan()">
+                <option value="kecil">Kecil</option>
+                <option value="sedang">Sedang</option>
+                <option value="besar">Besar</option>
+            </select>
+        </div>
+
+        <button onclick="tutupBacaan()">Tutup</button>
+    </div>
+</div>
+
+
+<div id="targetZikirModal" class="tema-modal">
+    <div class="tema-box">
+        <h2>Target Zikir</h2>
+        <p>Pilih jumlah hitungan zikir harian.</p>
+
+        <div class="tema-option" onclick="pilihTargetZikir(33)">
+            <div class="tema-preview tema-terang">
+                <i data-lucide="target"></i>
+            </div>
+            <div>
+                <h3>33 Kali</h3>
+                <p>Target zikir 33 hitungan.</p>
+            </div>
+            <span id="cekTarget33"></span>
+        </div>
+
+        <div class="tema-option" onclick="pilihTargetZikir(99)">
+            <div class="tema-preview tema-terang">
+                <i data-lucide="target"></i>
+            </div>
+            <div>
+                <h3>99 Kali</h3>
+                <p>Target zikir 99 hitungan.</p>
+            </div>
+            <span id="cekTarget99"></span>
+        </div>
+
+        <div class="tema-option" onclick="pilihTargetZikir(100)">
+            <div class="tema-preview tema-terang">
+                <i data-lucide="target"></i>
+            </div>
+            <div>
+                <h3>100 Kali</h3>
+                <p>Target zikir 100 hitungan.</p>
+            </div>
+            <span id="cekTarget100"></span>
+        </div>
+
+        <button onclick="tutupTargetZikir()">Tutup</button>
+    </div>
+</div>
+
+
+<!-- MODAL TENTANG APLIKASI -->
+<div id="tentangModal" class="tema-modal">
+    <div class="tema-box">
+        <h2>Tentang Cahaya Doa</h2>
+        <p>Mengenal lebih dekat aplikasi Cahaya Doa.</p>
+
+        <div class="tentang-logo">
+            <i data-lucide="moon-star"></i>
+            <h3>Cahaya Doa</h3>
+            <span>RUANG DOA HARIAN</span>
+        </div>
+
+        <div class="tentang-info">
+            <div>
+                <span>Nama Aplikasi</span>
+                <strong>Cahaya Doa</strong>
+            </div>
+
+            <div>
+                <span>Versi Aplikasi</span>
+                <strong>1.0.0</strong>
+            </div>
+
+            <div>
+                <span>Jenis Aplikasi</span>
+                <strong>Media Dakwah Digital</strong>
+            </div>
+        </div>
+
+        <p class="tentang-deskripsi">
+            Cahaya Doa merupakan media dakwah digital yang menyediakan
+            kumpulan doa sehari-hari dan fitur zikir untuk membantu
+            pengguna membiasakan diri dalam mengingat Allah SWT.
+        </p>
+
+        <button onclick="tutupTentang()">Tutup</button>
+    </div>
+</div>
+
+</body>
+</html>

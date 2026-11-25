@@ -1,0 +1,357 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahaya Doa | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-symbol">
+                <i data-lucide="moon-star"></i>
+            </div>
+            <h1>Cahaya Doa</h1>
+            <div class="brand-subtitle"><span></span> Ruang Doa Harian <span></span></div>
+        </div>
+
+        <div class="menu-title">MENU UTAMA</div>
+
+        <nav class="menu">
+            <a href="#" class="active"><i data-lucide="house"></i><span>Dashboard</span></a>
+            
+            <a href="{% url 'explore' %}">
+                <i data-lucide="compass"></i>
+                <span>Explore Doa</span>
+            </a>
+
+            <a href="{% url 'zikir' %}">
+                <i data-lucide="circle-dot"></i>
+                <span>Zikir </span>
+            </a>
+
+            <a href="{% url 'profil' %}">
+                <i data-lucide="user-round"></i>
+                <span>Profil</span>
+            </a>
+
+            <a href="{% url 'settings' %}">
+                <i data-lucide="settings"></i>
+                <span>Pengaturan</span>
+            </a>
+            </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-mosque"></div>
+            <p>"Dekatkan diri pada Allah,<br>temukan ketenangan sejati."</p>
+            <div class="footer-ornament"><span></span>✦<span></span></div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="page-heading">
+                <p class="small-label">RUANG DOA HARIAN</p>
+                <h2>Dashboard</h2>
+            </div>
+
+            <div class="profile">
+                <div class="profile-icon"><i data-lucide="moon-star"></i></div>
+                <div class="profile-text">
+                    <strong>Pengguna</strong>
+                    <small>Selamat datang</small>
+                </div>
+                <i data-lucide="chevron-down" class="profile-chevron"></i>
+            </div>
+        </header>
+
+        <section class="welcome">
+            <div class="welcome-text">
+                <p class="welcome-label">Assalamu’alaikum <i data-lucide="leaf"></i></p>
+                <h1>Selamat datang di Cahaya Doa <span>✦</span></h1>
+                <p>Temukan ketenangan melalui doa dan zikir dalam aktivitas sehari-hari.</p>
+            </div>
+            <div class="welcome-overlay"></div>
+        </section>
+
+        
+
+<section class="stats">
+
+    <!-- KOLEKSI DOA -->
+    <a href="{% url 'koleksi' %}" class="stat-card" style="color: #183c29; text-decoration: none;">
+        <div class="stat-icon">
+            <i data-lucide="book-open"></i>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-info">
+            <p>Koleksi Doa</p>
+            <h1>20+</h1>
+            <small>Kumpulan doa harian</small>
+        </div>
+        <i data-lucide="leaf" class="decor-icon"></i>
+    </a>
+
+    <!-- ZIKIR HARIAN -->
+    <a href="{% url 'zikir' %}" class="stat-card" style="color: #183c29; text-decoration: none;">
+        <div class="stat-icon">
+            <i data-lucide="circle-dot"></i>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-info">
+            <p>Zikir Harian</p>
+            <h1 id="statistikZikir">0</h1>
+            <small>Zikir selesai hari ini</small>
+        </div>
+        <i data-lucide="leaf" class="decor-icon"></i>
+    </a>
+
+    <!-- KATEGORI DOA -->
+    <a href="{% url 'explore' %}" class="stat-card" style="color: #183c29; text-decoration: none;">
+        <div class="stat-icon">
+            <i data-lucide="folder-open"></i>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-info">
+            <p>Kategori Doa</p>
+            <h1>4</h1>
+            <small>Kategori pilihan</small>
+        </div>
+        <i data-lucide="leaf" class="decor-icon"></i>
+    </a>
+
+</section>
+
+
+
+
+        <section class="daily-section">
+            <div class="section-heading">
+                <div class="heading-title">
+                    <i data-lucide="flower-2"></i>
+                    <h2>Doa Hari Ini</h2>
+                </div>
+                <a href="#" class="see-all">Lihat Semua <i data-lucide="arrow-right"></i></a>
+            </div>
+
+            <div class="daily-card">
+                <div class="prayer-image"></div>
+
+                <div class="prayer-detail">
+                    <span class="prayer-tag">Doa Harian</span>
+                    <h3>Doa Sebelum Tidur</h3>
+                    <p class="arabic" dir="rtl">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا</p>
+                    <p class="latin">Bismika Allahumma amuutu wa ahyaa.</p>
+                </div>
+
+                <div class="translation">
+                    <i data-lucide="quote"></i>
+                    <strong>Artinya:</strong>
+                    <p>Dengan nama-Mu ya Allah, aku mati dan aku hidup.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="section-heading">
+                <div class="heading-title">
+                    <i data-lucide="book-open"></i>
+                    <h2>Tentang Cahaya Doa</h2>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <p>Cahaya Doa merupakan ruang digital yang menyediakan kumpulan doa dan zikir harian untuk membantu pengguna mengakses bacaan dengan mudah, praktis, dan nyaman.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Cahaya Doa | Ruang Doa Harian</p>
+        </footer>
+
+    </main>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+
+<!-- SUARA DOA ARAB, LATIN, DAN ARTINYA -->
+<script>
+    let audioDoaAktif = null;
+
+    function ambilTeks(paragraf) {
+        return paragraf.textContent
+            .replace(/^(Latin|Artinya)\s*:\s*/i, "")
+            .trim();
+    }
+
+    function buatURL(teks, bahasa) {
+        return "{% url 'suara_doa' %}?teks="
+            + encodeURIComponent(teks)
+            + "&bahasa="
+            + bahasa;
+    }
+
+    function putarBagian(teks, bahasa) {
+        return new Promise((resolve, reject) => {
+            const audio = new Audio(buatURL(teks, bahasa));
+
+            audioDoaAktif = audio;
+
+            audio.onended = function() {
+                resolve();
+            };
+
+            audio.onerror = function() {
+                reject(new Error("Audio gagal dimuat"));
+            };
+
+            audio.play().catch(reject);
+        });
+    }
+
+    async function playDoa(arab, latin, arti, button) {
+        if (audioDoaAktif) {
+            audioDoaAktif.pause();
+            audioDoaAktif = null;
+        }
+
+        document.querySelectorAll(".audio-doa-button")
+            .forEach(b => b.classList.remove("playing"));
+
+        button.classList.add("playing");
+
+        try {
+            // 1. Membacakan tulisan Arab
+            await putarBagian(arab, "ar");
+
+            // 2. Membacakan arti dengan bahasa Indonesia
+            await putarBagian(arti, "id");
+
+        } catch (error) {
+            alert("Audio gagal diputar. Periksa koneksi internet.");
+            console.error(error);
+
+        } finally {
+            button.classList.remove("playing");
+            audioDoaAktif = null;
+        }
+    }
+
+    function pasangTombolSuara() {
+        document.querySelectorAll(".category-content .arabic")
+            .forEach(arab => {
+
+            if (arab.dataset.audioTerpasang === "true") {
+                return;
+            }
+
+            const latinElement = arab.nextElementSibling;
+
+            if (!latinElement || latinElement.tagName !== "P") {
+                return;
+            }
+
+            const artiElement = latinElement.nextElementSibling;
+
+            if (!artiElement || artiElement.tagName !== "P") {
+                return;
+            }
+
+            const teksArab = arab.textContent.trim();
+            const teksLatin = ambilTeks(latinElement);
+            const teksArti = ambilTeks(artiElement);
+
+            const button = document.createElement("button");
+
+            button.className = "audio-doa-button";
+            button.type = "button";
+            button.title = "Dengarkan doa lengkap";
+            button.innerHTML = '<i data-lucide="volume-2"></i>';
+
+            button.onclick = function() {
+                playDoa(
+                    teksArab,
+                    teksLatin,
+                    teksArti,
+                    button
+                );
+            };
+
+            arab.insertAdjacentElement("afterend", button);
+
+            arab.dataset.audioTerpasang = "true";
+        });
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+
+    pasangTombolSuara();
+</script>
+
+
+<script>
+function terapkanUkuranBacaan() {
+    const ukuranArab = localStorage.getItem('ukuranArab') || 'sedang';
+    const ukuranTerjemahan = localStorage.getItem('ukuranTerjemahan') || 'sedang';
+
+    document.querySelectorAll('.arabic').forEach(function(teks) {
+        teks.classList.remove(
+            'ukuran-kecil',
+            'ukuran-sedang',
+            'ukuran-besar'
+        );
+
+        teks.classList.add('ukuran-' + ukuranArab);
+    });
+
+    document.querySelectorAll('.category-content p').forEach(function(teks) {
+        if (teks.textContent.includes('Artinya:')) {
+            teks.classList.remove(
+                'ukuran-terjemahan-kecil',
+                'ukuran-terjemahan-sedang',
+                'ukuran-terjemahan-besar'
+            );
+
+            teks.classList.add('ukuran-terjemahan-' + ukuranTerjemahan);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', terapkanUkuranBacaan);
+</script>
+
+
+<script>
+function tampilkanStatistikZikir() {
+    const hariIni = new Date().toLocaleDateString('en-CA');
+    const tanggalTersimpan = localStorage.getItem('tanggalZikir');
+
+    if (tanggalTersimpan !== hariIni) {
+        localStorage.setItem('tanggalZikir', hariIni);
+        localStorage.setItem('totalZikirHarian', '0');
+    }
+
+    const total = localStorage.getItem('totalZikirHarian') || '0';
+
+    document.getElementById('statistikZikir').textContent = total;
+}
+
+document.addEventListener('DOMContentLoaded', tampilkanStatistikZikir);
+</script>
+
+</body>
+</html>
