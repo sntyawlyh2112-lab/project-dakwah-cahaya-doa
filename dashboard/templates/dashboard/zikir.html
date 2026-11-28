@@ -364,6 +364,7 @@
 
 </main>
     
+
 <script>
     const daftarZikir = [
         {
@@ -395,10 +396,9 @@
     const beadCircle = document.getElementById("beadCircle");
     const svgNS = "http://www.w3.org/2000/svg";
 
-    // Menyesuaikan tulisan target
     document.querySelector(".count-target").textContent = "/ " + target;
 
-    // Membuat titik sesuai target
+    // Membuat lingkaran titik tasbih
     const ring = document.createElementNS(svgNS, "svg");
     ring.setAttribute("viewBox", "0 0 230 230");
     ring.setAttribute("class", "bead-ring");
@@ -420,6 +420,25 @@
 
     beadCircle.appendChild(ring);
 
+    // MEMILIH JENIS ZIKIR
+    function pilihZikir(index) {
+        zikirAktif = index;
+        hitungan = 0;
+
+        document.getElementById("arabicText").textContent =
+            daftarZikir[index].arab;
+
+        document.getElementById("zikirName").textContent =
+            daftarZikir[index].nama;
+
+        document.querySelectorAll(".zikir-option").forEach((button, i) => {
+            button.classList.toggle("active", i === index);
+        });
+
+        perbaruiTampilan();
+    }
+
+    // MEMPERBARUI TAMPILAN HITUNGAN
     function perbaruiTampilan() {
         document.getElementById("countNumber").textContent = hitungan;
 
@@ -427,11 +446,14 @@
             hitungan + " dari " + target + " zikir";
 
         for (let i = 0; i < target; i++) {
-            document.getElementById("bead-" + i)
-                .classList.toggle("active", i < hitungan);
+            const dot = document.getElementById("bead-" + i);
+
+            if (dot) {
+                dot.classList.toggle("active", i < hitungan);
+            }
         }
 
-        if (hitungan === target) {
+        if (hitungan >= target) {
             document.getElementById("counterStatus").textContent =
                 "Alhamdulillah, target zikir tercapai!";
         } else {
@@ -440,39 +462,40 @@
         }
     }
 
-    
-function tambahHitungan() {
-    if (hitungan < target) {
-        hitungan++;
+    // MENAMBAH HITUNGAN
+    function tambahHitungan() {
+        if (hitungan < target) {
+            hitungan++;
 
-        const hariIni = new Date().toLocaleDateString('en-CA');
-        const tanggalTersimpan = localStorage.getItem('tanggalZikir');
+            const hariIni = new Date().toLocaleDateString('en-CA');
+            const tanggalTersimpan = localStorage.getItem('tanggalZikir');
 
-        if (tanggalTersimpan !== hariIni) {
-            localStorage.setItem('tanggalZikir', hariIni);
-            localStorage.setItem('totalZikirHarian', '0');
+            if (tanggalTersimpan !== hariIni) {
+                localStorage.setItem('tanggalZikir', hariIni);
+                localStorage.setItem('totalZikirHarian', '0');
+            }
+
+            let total = Number(
+                localStorage.getItem('totalZikirHarian') || 0
+            );
+
+            total++;
+
+            localStorage.setItem('totalZikirHarian', total);
+
+            perbaruiTampilan();
         }
+    }
 
-        let total = Number(localStorage.getItem('totalZikirHarian') || 0);
-        total++;
-
-        localStorage.setItem('totalZikirHarian', total);
-
+    // RESET HITUNGAN ZIKIR YANG DIPILIH
+    function resetHitungan() {
+        hitungan = 0;
         perbaruiTampilan();
     }
-}
 
-function resetHitungan() {
-    hitungan = 0;
-
-    localStorage.setItem('totalZikirHarian', '0');
-
-    const hariIni = new Date().toLocaleDateString('en-CA');
-    localStorage.setItem('tanggalZikir', hariIni);
-
+    // TAMPILAN AWAL
     perbaruiTampilan();
-}
-
 </script>
+
 </body>
 </html>
