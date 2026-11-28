@@ -33,6 +33,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    '.vercel.app',
 ]
 RENDER_HOST = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_HOST:
