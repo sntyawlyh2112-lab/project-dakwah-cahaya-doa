@@ -7,6 +7,7 @@ from pathlib import Path
 import os
 import dj_database_url
 
+
 # ==================================================
 # BASE DIRECTORY
 # ==================================================
@@ -23,8 +24,9 @@ SECRET_KEY = os.environ.get(
     'local-development-only-key-change-this'
 )
 
-# DEBUG otomatis False jika berjalan di Vercel
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
+DEBUG = os.environ.get(
+    'DJANGO_DEBUG', 'False'
+).lower() == 'true'
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -33,8 +35,14 @@ ALLOWED_HOSTS = [
 ]
 
 RENDER_HOST = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
 if RENDER_HOST:
     ALLOWED_HOSTS.append(RENDER_HOST)
+
+
+# ==================================================
+# CSRF AND HTTPS SETTINGS
+# ==================================================
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.vercel.app',
@@ -45,7 +53,6 @@ if RENDER_HOST:
         f'https://{RENDER_HOST}'
     )
 
-# HTTPS proxy settings
 SECURE_PROXY_SSL_HEADER = (
     'HTTP_X_FORWARDED_PROTO',
     'https'
@@ -123,7 +130,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # SQLITE FOR LOCAL DEVELOPMENT
 # ==================================================
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = (
+    os.environ.get('DATABASE_URL')
+    or os.environ.get('POSTGRES_URL')
+    or os.environ.get('POSTGRES_URL_NON_POOLING')
+)
 
 if DATABASE_URL:
     DATABASES = {
@@ -192,10 +203,6 @@ STORAGES = {
     },
 }
 
-
-# ==================================================
-# EMAIL CONFIGURATION
-# ==================================================
 
 # ==================================================
 # EMAIL CONFIGURATION
