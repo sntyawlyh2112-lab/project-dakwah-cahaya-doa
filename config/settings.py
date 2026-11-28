@@ -197,7 +197,9 @@ STORAGES = {
 # EMAIL CONFIGURATION
 # ==================================================
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# ==================================================
+# EMAIL CONFIGURATION
+# ==================================================
 
 MAILERS = {
     'default': {
